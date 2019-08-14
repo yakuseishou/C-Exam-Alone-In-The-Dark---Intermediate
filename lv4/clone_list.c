@@ -15,16 +15,16 @@ struct s_node *init(int v)
     return (new);
 }
 
-struct s_node *clonenext(struct s_node *node, int *l)
+struct s_node *clonenext(struct s_node *node)//, int *l)
 {
     if (!node)
         return (0);
     struct s_node *new = init(node->data);
-    *l += 1;
-    new->next = clonenext(node->next, l);
+    //*l += 1;
+    new->next = clonenext(node->next);//, l);
     return (new);
 }
-
+/*
 struct s_node   **nodeadr(struct s_node *node, int l)
 {
     struct s_node     **arr;
@@ -38,8 +38,8 @@ struct s_node   **nodeadr(struct s_node *node, int l)
         i++;
     }
     return (arr);
-}
-
+}*/
+/*
 void    cloneothr(struct s_node *node, struct s_node *copy, struct s_node **a, struct s_node **b, int l)
 {
     if (!node || !copy)
@@ -53,15 +53,35 @@ void    cloneothr(struct s_node *node, struct s_node *copy, struct s_node **a, s
         }
     }
     cloneothr(node->next, copy->next, a, b, l);
+}*/
+
+void    cloneothr(struct s_node *node, struct s_node *copy, struct s_node *a, struct s_node *b)
+{
+    if (!a || !b)
+        return ;
+    struct s_node *x = node;
+    struct s_node *y = copy;
+    while(x || y)
+    {
+        if (a->other == x)
+        {
+            b->other = y;
+            break;
+        }
+        x = x->next;
+        y = y->next;
+    }
+    cloneothr(node, copy, a->next, b->next);
 }
 
 struct s_node *clone_list(struct s_node *node)
 {
-    int     l = 0;
-    struct s_node   *copy = clonenext(node, &l);
-    struct s_node   **a = nodeadr(node, l);
-    struct s_node   **b = nodeadr(copy, l);
-    cloneothr(node, copy, a, b, l);
+    //int     l = 0;
+    struct s_node   *copy = clonenext(node);//, &l);
+    //struct s_node   **a = nodeadr(node, l);
+    //struct s_node   **b = nodeadr(copy, l);
+    //cloneothr(node, copy, a, b, l);
+    cloneothr(node, copy, node, copy);
     return (copy);
 }
 
