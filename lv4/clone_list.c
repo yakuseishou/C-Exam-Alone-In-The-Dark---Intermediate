@@ -1,90 +1,76 @@
 #include <stdlib.h>
 
 struct s_node {
-    int           data;
-    struct s_node *next;
-    struct s_node *other;
+	int           data;
+	struct s_node *next;
+	struct s_node *other;
 };
 
 struct s_node *init(int v)
 {
-    struct s_node *new = malloc(sizeof(struct s_node));
-    new->data = v;
-    new->next = 0;
-    new->other = 0;
-    return (new);
+	struct s_node *new = malloc(sizeof(struct s_node));
+	new->data = v;
+	new->next = 0;
+	new->other = 0;
+	return (new);
 }
 
-struct s_node *clonenext(struct s_node *node)//, int *l)
+struct s_node	*clone_next(struct s_node *node, int *nodeL)
 {
-    if (!node)
-        return (0);
-    struct s_node *new = init(node->data);
-    //*l += 1;
-    new->next = clonenext(node->next);//, l);
-    return (new);
-}
-/*
-struct s_node   **nodeadr(struct s_node *node, int l)
-{
-    struct s_node     **arr;
-    int     i = 0;
-
-    arr = malloc(sizeof(struct s_node) * (l));
-    while(node)
-    {
-        arr[i] = node;
-        node = node->next;
-        i++;
-    }
-    return (arr);
-}*/
-/*
-void    cloneothr(struct s_node *node, struct s_node *copy, struct s_node **a, struct s_node **b, int l)
-{
-    if (!node || !copy)
-        return ;
-    for (int i = 0; i < l; i++)
-    {
-        if (a[i] == node->other)
-        {
-            copy->other = b[i];
-            break;
-        }
-    }
-    cloneothr(node->next, copy->next, a, b, l);
-}*/
-
-void    cloneothr(struct s_node *node, struct s_node *copy, struct s_node *a, struct s_node *b)
-{
-    if (!a || !b)
-        return ;
-    struct s_node *x = node;
-    struct s_node *y = copy;
-    while(x || y)
-    {
-        if (a->other == x)
-        {
-            b->other = y;
-            break;
-        }
-        x = x->next;
-        y = y->next;
-    }
-    cloneothr(node, copy, a->next, b->next);
+	if (!node)
+		return (0);
+	struct s_node *new = init(node->data);
+	new->next = clone_next(node->next, nodeL);
+	*nodeL += 1;
+	return (new);
 }
 
 struct s_node *clone_list(struct s_node *node)
 {
-    //int     l = 0;
-    struct s_node   *copy = clonenext(node);//, &l);
-    //struct s_node   **a = nodeadr(node, l);
-    //struct s_node   **b = nodeadr(copy, l);
-    //cloneothr(node, copy, a, b, l);
-    cloneothr(node, copy, node, copy);
-    return (copy);
-}
+	if (!node)
+		return (0);
+	struct s_node *tmp = node;
+	int		nodeL = 0;
+	struct s_node *clon = clone_next(node, &nodeL);
+	struct s_node   *tmpC = clon;
 
+	struct s_node	**old = malloc(sizeof(struct s_node) * nodeL);
+	struct s_node   **ne = malloc(sizeof(struct s_node) * nodeL);
+	int		i = 0;
+	
+	while(tmp && tmpC)
+	{
+		old[i] = tmp;
+		ne[i] = tmpC;
+		tmp = tmp->next;
+		tmpC = tmpC->next;
+		i++;
+	}
+	tmp = node;
+	tmpC = clon;
+	while(tmp && tmpC)
+	{
+		if (tmp->other)
+		{
+			i = 0;
+			while(i < nodeL)
+			{
+				if (tmp->other != NULL && old[i] == tmp->other)
+				{
+					tmpC->other = ne[i];
+					break;
+				}
+				i++;
+			}
+		}
+		tmp = tmp->next;
+		tmpC = tmpC->next;
+	}
+
+	return (clon);
+}
+/* main for testing */
+/*
 #include <stdio.h>
 
 int main() {
@@ -131,3 +117,4 @@ int main() {
     printf("\n");
     return 0;
 }
+*/
