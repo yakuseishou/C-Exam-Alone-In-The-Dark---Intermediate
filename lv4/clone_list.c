@@ -15,7 +15,6 @@ struct s_node *init(int v)
 	return (new);
 }
 
-```
 struct s_node	*clone_next(struct s_node *node, int *nodeL)
 {
 	if (!node)
@@ -25,7 +24,6 @@ struct s_node	*clone_next(struct s_node *node, int *nodeL)
 	*nodeL += 1;
 	return (new);
 }
-```
 
 struct s_node *clone_list(struct s_node *node)
 {
