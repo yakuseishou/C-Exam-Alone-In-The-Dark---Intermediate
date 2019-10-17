@@ -69,3 +69,55 @@ struct s_node *clone_list(struct s_node *node)
 
 	return (clon);
 }
+<<<<<<< HEAD
+=======
+/* main for testing */
+/*
+#include <stdio.h>
+
+int main() {
+
+    struct s_node *a = init(1);
+    struct s_node *b = init(2);
+    struct s_node *c = init(3);
+    struct s_node *d = init(4);
+
+    a->next = b;
+    b->next = c;
+    c->next = d;
+    a->other = a;
+    b->other = b;
+    c->other = a;
+    d->other = b;
+
+    struct s_node *tmp = a;
+    while(tmp)
+    {
+        printf("%d ", tmp->data);
+        tmp = tmp->next;
+    }
+    tmp = a;
+    while(tmp)
+    {
+        printf("%d ", tmp->other->data);
+        tmp = tmp->next;
+    }
+    printf("\n");
+    struct s_node *new = clone_list(a);
+    tmp = new;
+    while(tmp)
+    {
+        printf("%d ", tmp->data);
+        tmp = tmp->next;
+    }
+    tmp = new;
+    while(tmp)
+    {
+        printf("%d ", tmp->other->data);
+        tmp = tmp->next;
+    }
+    printf("\n");
+    return 0;
+}
+*/
+>>>>>>> 82dcc0c0fcc77f1cf1910a329a911b617659ecd3
