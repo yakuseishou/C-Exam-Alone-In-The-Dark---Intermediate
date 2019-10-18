@@ -34,6 +34,7 @@ struct s_node *clone_list(struct s_node *node)
 	struct s_node *clon = clone_next(node, &nodeL);
 	struct s_node   *tmpC = clon;
 
+```c
 	struct s_node	**old = malloc(sizeof(struct s_node) * nodeL);
 	struct s_node   **ne = malloc(sizeof(struct s_node) * nodeL);
 	int		i = 0;
@@ -66,6 +67,7 @@ struct s_node *clone_list(struct s_node *node)
 		tmp = tmp->next;
 		tmpC = tmpC->next;
 	}
+```
 
 	return (clon);
 }
